@@ -1,8 +1,10 @@
-const {Schema, model} = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema, model } = mongoose;
 
 const CuentaCobroSchema = Schema({
     NroCuenta:{
         type: Number,
+        unique: true,
         required: [true, "No se pudo indexar el Nro de cuenta"]
     },
     archivo: {
@@ -11,11 +13,18 @@ const CuentaCobroSchema = Schema({
       },
     fechaLimite:{
         type: Date,
+        validate: {
+            validator: (value)=> {
+                fecha= new Date();
+              return fecha < value;
+            },
+            message: "Fecha no aceptada"
+        },
         required: [true, "Se requiere introducir una fecha limite"]
     },
     fechaCreacionCuenta:{
         type: Date,
-        required: [true, "Se requiere introducir una fecha limite"]
+        default: new Date(),
     },
     apartamento:{
         type:String,
@@ -27,12 +36,13 @@ const CuentaCobroSchema = Schema({
     },
     cobros: {
         type: [mongoose.Schema.Types.Mixed],
-        required: [true, "No se indexo nada en el campo cobros"],
+        
         validate: {
           validator: function (cobros) {
             return cobros.length > 0;
           },
-        }
+        },
+        message: "no hay cobro"
     }
 
 })

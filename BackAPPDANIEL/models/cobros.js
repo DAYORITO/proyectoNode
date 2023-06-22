@@ -1,14 +1,19 @@
 const {Schema, model} = require('mongoose');
 
 const CobroSchema = Schema({
+    codigoCobro:{
+        type: String,
+        required: [true, "No se indexo el codigo"],
+        unique: true
+    },
     tipoCobro:{
         type: String,
         required: [true, "Se requiere especificar el tipo de cobro"],
-        unique: true
+        
     },
     fechaCreacion:{
         type: Date,
-        required: [true, "Se requiere ingresar la fecha de nacimiento"]
+        default: new Date(),
     },
     estado:{
         type: String,

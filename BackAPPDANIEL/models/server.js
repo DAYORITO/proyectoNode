@@ -17,6 +17,8 @@ class Server {
     }
     routes(){
         this.app.use(this.schemasPath, require('../routes/reservas'));
+        this.app.use(this.schemasPath, require('../routes/cuentascobros'));
+        this.app.use(this.schemasPath, require('../routes/cobros'));
     };
     async dbConection(){
         await dbConection();
