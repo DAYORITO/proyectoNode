@@ -16,7 +16,7 @@ const getCuentasCobros = async (req, res) => {
 };
 const postCuentasCobros = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
         console.log(body);
         const cuenta = new CuentaCobro(body);
         console.log(body);
@@ -35,7 +35,7 @@ const postCuentasCobros = async (req, res) => {
 
 const putCuentasCobros = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.boby;
         let camposEditar = {...body}
         console.log(camposEditar)
         delete camposEditar._id;
@@ -60,7 +60,7 @@ const putCuentasCobros = async (req, res) => {
     };
 };
 const deleteCuentasCobros = async (req, res) => {
-    const body = req.query;
+    const body = req.boby;
     console.log(body);
     const cuenta = await CuentaCobro.findOneAndDelete({codigoReserva: body.codigoReserva});
     res.json({
