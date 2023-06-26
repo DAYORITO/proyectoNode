@@ -5,7 +5,7 @@ const getCuentasCobros = async (req, res) => {
         const cuenta = await CuentaCobro.find();
         res.json({
             mensaje: "Consulta exitosa",
-            reservas: cuenta
+            cuenta: cuenta
         });
     }catch(e){
         res.json({
