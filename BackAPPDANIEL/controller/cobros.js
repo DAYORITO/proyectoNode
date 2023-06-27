@@ -17,6 +17,7 @@ const getCobro = async (req, res) => {
 const postCobro = async (req, res) => {
     try{
         const body = req.body;
+        delete body.fechaCreacion
         const cobro = new Cobro(body);
         console.log(body);
         await cobro.save();

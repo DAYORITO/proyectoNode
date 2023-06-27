@@ -24,14 +24,6 @@ const CuentaCobroSchema = Schema({
     },
     fechaCreacion:{
         type: Date,
-        validate:{
-            validator: (value) => {
-                let date = new Date(value);
-                let fecha = new Date();
-                return date == fecha
-            },
-            message: "Fecha de creacion no valida"
-        },
         default: new Date(),
     },
     espacio:{

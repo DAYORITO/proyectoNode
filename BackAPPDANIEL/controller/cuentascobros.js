@@ -17,6 +17,7 @@ const getCuentasCobros = async (req, res) => {
 const postCuentasCobros = async (req, res) => {
     try{
         const body = req.body;
+        delete body.fechaCreacion
         console.log(body);
         const cuenta = new CuentaCobro(body);
         console.log(body);

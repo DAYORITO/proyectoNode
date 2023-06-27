@@ -16,7 +16,8 @@ const getReserva = async (req, res) => {
 };
 const postReserva = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
+        delete body.fechaCreacion;
         const reserva = new Reserva(body);
         console.log(body);
         await reserva.save();
@@ -33,7 +34,7 @@ const postReserva = async (req, res) => {
 
 const putReserva = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
         let camposEditar = {...body}
         console.log(camposEditar)
         delete camposEditar._id;
@@ -59,7 +60,7 @@ const putReserva = async (req, res) => {
     };
 };
 const deleteReserva = async (req, res) => {
-    const body = req.query;
+    const body = req.body;
     console.log(body);
     const reserva = await Reserva.findOneAndDelete({codigoReserva: body.codigoReserva});
     res.json({

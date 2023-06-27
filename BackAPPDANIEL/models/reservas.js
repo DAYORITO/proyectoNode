@@ -30,16 +30,7 @@ const ReservaSchema = Schema({
     },
     fechaCreacion:{
         type: Date,
-        validate:{
-            validator: (value) => {
-                let date = new Date(value);
-                let fecha = new Date();
-                return date == fecha
-            },
-            message: "Fecha de creacion no valida"
-        },
         default: new Date(),
-        required: [true, "No se guardo la fecha de creacion"]
     },
     espacio:{
         type: String,
