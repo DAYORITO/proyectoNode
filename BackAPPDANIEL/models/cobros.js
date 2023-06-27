@@ -3,6 +3,13 @@ const {Schema, model} = require('mongoose');
 const CobroSchema = Schema({
     codigoCobro:{
         type: String,
+        validate:{
+            validator: (value)=>{
+            const regex = /^[A-Za-z]{2,3}\d{3}$/
+            return regex.test(value)
+            },
+            message: "El valor no es valido para el campo de tipo de cobro",
+        },
         required: [true, "No se indexo el codigo"],
         unique: true
     },
@@ -10,10 +17,10 @@ const CobroSchema = Schema({
         type: String,
         validate:{
             validator: (value)=>{
-            const regex = /^[A-Za-z]{2,3}\d{3}$/
-            return regex.test(value)
+                const regex = /^[A-Za-z\s]+$/
+                return regex.test(value);
             },
-            message: "El valor no es valido para el campo de tipo de cobro",
+            message: "Valor invalido para tipo de reserva"
         },
         required: [true, "Se requiere especificar el tipo de cobro"],
     },
