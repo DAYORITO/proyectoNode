@@ -31,10 +31,9 @@ const CobroSchema = Schema({
     estado:{
         type: String,
         default: "Activo",
-        validate: (value)=>{
-            return value == "Activo" || value == "Inactivo"
-        },
-        message: "No se pudo registrar el estado"
+        min:{
+            0
+        }
     },
     valor:{
         type: Number,
