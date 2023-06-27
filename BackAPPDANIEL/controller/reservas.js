@@ -41,11 +41,10 @@ const putReserva = async (req, res) => {
         delete camposEditar.tipoReserva
         delete camposEditar.codigoReserva
         delete camposEditar.fechaCreacion
-        delete camposEditar.nroApartamento
         console.log(camposEditar)
         console.log(body._id)
-        const reserva = await Reserva.findOneAndUpdate({codigoReserva: body.codigoReserva}, camposEditar, {new: true});
-        const reservaModificada = await Reserva.find({codigoReserva: body.codigoReserva})
+        const reserva = await Reserva.findOneAndUpdate({_id: body._id}, camposEditar, {new: true});
+        const reservaModificada = await Reserva.find({_id: body._id})
         res.json({
             mensaje: "Se modifico exitosamente la reserva",
             reserva,
@@ -62,7 +61,7 @@ const putReserva = async (req, res) => {
 const deleteReserva = async (req, res) => {
     const body = req.body;
     console.log(body);
-    const reserva = await Reserva.findOneAndDelete({codigoReserva: body.codigoReserva});
+    const reserva = await Reserva.findOneAndDelete({_id: body._id});
     res.json({
         mensaje: "Se elimino la reserva",
         reserva
