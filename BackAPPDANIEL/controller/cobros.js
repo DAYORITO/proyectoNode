@@ -44,7 +44,7 @@ const putCobro = async (req, res) => {
         console.log(camposEditar)
         console.log(body._id)
         const cobro = await Cobro.findOneAndUpdate({_id: body._id}, camposEditar, {new: true});
-        const cobroModificado = await Cobro.find({codigoCobro: body.codigoCobro})
+        const cobroModificado = await Cobro.find({_id: body._id})
         res.json({
             mensaje: "Se modifico exitosamente el cobro",
             cobro,
