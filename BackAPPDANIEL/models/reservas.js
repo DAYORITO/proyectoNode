@@ -10,8 +10,8 @@ const ReservaSchema = Schema({
         type: String,
         validate:{
             validator: (value)=>{
-                
-                return regex.test(value);
+                const regextipo = /^[A-Za-z\s]+$/;
+                return regextipo.test(value);
             },
             message: "Valor invalido para tipo de reserva"
         },
@@ -36,8 +36,8 @@ const ReservaSchema = Schema({
         type: String,
         validate:{
             validator: (value) => {
-                const regex =/^[A-Za-z]?\d{3}$/;
-                return regex.test(value);
+                const regexespacio =/^[A-Za-z]?\d{3}$/;
+                return regexespacio.test(value);
             },
             message: "El valor de el espacio es invalido",
         },
@@ -47,8 +47,8 @@ const ReservaSchema = Schema({
         type: String,
         validate:{
             validator: (value)=>{
-                const regex = /^[A-Za-z\s]+$/
-                return regex.test(value);
+                const regexpropi = /^[A-Za-z\s]+$/;
+                return regexpropi.test(value);
             },
             message: "Valor invalido para el propietario"
         },
@@ -56,14 +56,14 @@ const ReservaSchema = Schema({
     },
     vehiculo:{
         type: String,
-        default: "N/A",
         validate:{
             validator: (value)=>{
-                const regexMatricula = /^[A-Za-z]{3}\d{3}$/;
+                const regexMatricula = /^(N\/A|[A-Za-z]{3}\d{3})$/;
                 return regexMatricula.test(value)
             },
             message: "Valor invalido para la matricula"
         },
+        default: "N/A",
     }
 
 })
