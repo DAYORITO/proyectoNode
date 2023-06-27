@@ -8,6 +8,13 @@ const ReservaSchema = Schema({
     },
     tipoReserva: {
         type: String,
+        validate:{
+            validator: (value)=>{
+                const regex = /^[A-Za-z\s]+$/
+                return regex.test(value);
+            },
+            message: "Valor invalido para tipo de reserva"
+        },
         required: [true, "No se guardo el tipo de reserva"]
     },
     fechaReservar:{
@@ -23,15 +30,37 @@ const ReservaSchema = Schema({
     },
     fechaCreacion:{
         type: Date,
+        validate:{
+            validator: (value) => {
+                let date = new Date(value);
+                let fecha = new Date();
+                return date == fecha
+            },
+            message: "Fecha de creacion no valida"
+        },
         default: new Date(),
         required: [true, "No se guardo la fecha de creacion"]
     },
-    nroApartamento:{
+    espacio:{
         type: String,
-        required: [true, "no se guardo el nro del apartamento"]
+        validate:{
+            validator: (value) => {
+                const regex =/^[A-Za-z]?\d{3}$/;
+                return regex.test(value);
+            },
+            message: "El valor de el espacio es invalido",
+        },
+        required: [true, "se requiere el numero del espacio"]
     },
     propietario:{
         type: String,
+        validate:{
+            validator: (value)=>{
+                const regex = /^[A-Za-z\s]+$/
+                return regex.test(value);
+            },
+            message: "Valor invalido para el propietario"
+        },
         required: [true, "no se guardo el propietario"]
     },
     vehiculo:{

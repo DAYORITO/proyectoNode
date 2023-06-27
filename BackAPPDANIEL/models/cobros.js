@@ -8,11 +8,25 @@ const CobroSchema = Schema({
     },
     tipoCobro:{
         type: String,
+        validate:{
+            validator: (value)=>{
+            const regex = /^[A-Za-z]{2,3}\d{3}$/
+            return regex.test(value)
+            },
+            message: "El valor no es valido para el campo de tipo de cobro",
+        },
         required: [true, "Se requiere especificar el tipo de cobro"],
-        
     },
     fechaCreacion:{
         type: Date,
+        validate:{
+            validator: (value) => {
+                let date = new Date(value);
+                let fecha = new Date();
+                return date == fecha
+            },
+            message: "Fecha de creacion no valida"
+        },
         default: new Date(),
     },
     estado:{

@@ -16,7 +16,7 @@ const getCobro = async (req, res) => {
 };
 const postCobro = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
         const cobro = new Cobro(body);
         console.log(body);
         await cobro.save();
@@ -34,7 +34,7 @@ const postCobro = async (req, res) => {
 
 const putCobro = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
         let camposEditar = {...body}
         console.log(camposEditar)
         delete camposEditar._id;
@@ -43,7 +43,7 @@ const putCobro = async (req, res) => {
         delete camposEditar.tipoCobro
         console.log(camposEditar)
         console.log(body._id)
-        const cobro = await Cobro.findOneAndUpdate({codigoCobro: body.codigoCobro}, camposEditar, {new: true});
+        const cobro = await Cobro.findOneAndUpdate({_id: body._id}, camposEditar, {new: true});
         const cobroModificado = await Cobro.find({codigoCobro: body.codigoCobro})
         res.json({
             mensaje: "Se modifico exitosamente el cobro",
@@ -59,9 +59,9 @@ const putCobro = async (req, res) => {
     };
 };
 const deleteCobro = async (req, res) => {
-    const body = req.query;
+    const body = req.body;
     console.log(body);
-    const cobro = await Cobro.findOneAndDelete({tipoCobro: body.tipoCobro});
+    const cobro = await Cobro.findOneAndDelete({_id: body._id});
     res.json({
         mensaje: "Se elimino el cobro",
         cobro

@@ -22,12 +22,27 @@ const CuentaCobroSchema = Schema({
         },
         required: [true, "Se requiere introducir una fecha limite"]
     },
-    fechaCreacionCuenta:{
+    fechaCreacion:{
         type: Date,
+        validate:{
+            validator: (value) => {
+                let date = new Date(value);
+                let fecha = new Date();
+                return date == fecha
+            },
+            message: "Fecha de creacion no valida"
+        },
         default: new Date(),
     },
-    apartamento:{
+    espacio:{
         type:String,
+        validate:{
+            validator: (value) => {
+                const regex =/^[A-Za-z]?\d{3}$/;
+                return regex.test(value);
+            },
+            message: "El valor de el espacio es invalido",
+        },
         required: [true, "Se requiere introducir el apartamento"]
     },
     valortotal:{
@@ -45,5 +60,25 @@ const CuentaCobroSchema = Schema({
         message: "no hay cobro"
     }
 
-})
+}); 
+
+CuentaCobroSchema.pre('save', function (next) {
+
+    const fechaLimite = this.fechaLimite;
+    const diaLimite = fechaLimite.getDate();
+    const mesLimite = fechaLimite.getMonth() + 1;
+    const anioLimite = fechaLimite.getFullYear();
+  
+    this.fechaLimite = new Date(`${mesLimite}/${diaLimite}/${anioLimite}`);
+  
+    const fechaCreacion = this.fechaCreacion;
+    const diaCreacion = fechaCreacion.getDate();
+    const mesCreacion = fechaCreacion.getMonth() + 1;
+    const anioCreacion = fechaCreacion.getFullYear();
+  
+    this.fechaCreacion = new Date(`${mesCreacion}/${diaCreacion}/${anioCreacion}`);
+  
+    next();
+});
+
 module.exports = model("CuentaCobro", CuentaCobroSchema);

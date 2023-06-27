@@ -5,7 +5,7 @@ const getCuentasCobros = async (req, res) => {
         const cuenta = await CuentaCobro.find();
         res.json({
             mensaje: "Consulta exitosa",
-            reservas: cuenta
+            cuenta: cuenta
         });
     }catch(e){
         res.json({
@@ -16,7 +16,7 @@ const getCuentasCobros = async (req, res) => {
 };
 const postCuentasCobros = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
         console.log(body);
         const cuenta = new CuentaCobro(body);
         console.log(body);
@@ -35,17 +35,17 @@ const postCuentasCobros = async (req, res) => {
 
 const putCuentasCobros = async (req, res) => {
     try{
-        const body = req.query;
+        const body = req.body;
         let camposEditar = {...body}
         console.log(camposEditar)
         delete camposEditar._id;
         delete camposEditar.NroCuenta
-        delete camposEditar.apartamento
+        delete camposEditar.espacio
         delete camposEditar.fechaCreacion
         console.log(camposEditar)
         console.log(body._id)
-        const cuenta = await CuentaCobro.findOneAndUpdate({NroCuenta: body.NroCuenta}, camposEditar, {new: true});
-        const cuentaModificada = await CuentaCobro.find({NroCuenta: body.NroCuenta})
+        const cuenta = await CuentaCobro.findOneAndUpdate({_id: body._id}, camposEditar, {new: true});
+        const cuentaModificada = await CuentaCobro.find({_id: body._id})
         res.json({
             mensaje: "Se modifico exitosamente la cuenta",
             cuenta,
@@ -60,9 +60,9 @@ const putCuentasCobros = async (req, res) => {
     };
 };
 const deleteCuentasCobros = async (req, res) => {
-    const body = req.query;
+    const body = req.body;
     console.log(body);
-    const cuenta = await CuentaCobro.findOneAndDelete({codigoReserva: body.codigoReserva});
+    const cuenta = await CuentaCobro.findOneAndDelete({_id: body._id});
     res.json({
         mensaje: "Se elimino la cuenta",
         cuenta
