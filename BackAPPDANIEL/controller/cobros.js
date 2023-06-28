@@ -35,7 +35,13 @@ const postCobro = async (req, res) => {
 
 const putCobro = async (req, res) => {
     try{
+        
         const body = req.body;
+        const valor = body.valor;
+        if (valor < 0) {
+            throw new Error ("El valor no puede ser negativo")
+            
+        }
         let camposEditar = {...body}
         console.log(camposEditar)
         delete camposEditar._id;

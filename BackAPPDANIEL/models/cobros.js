@@ -31,17 +31,22 @@ const CobroSchema = Schema({
     estado:{
         type: String,
         default: "Activo",
-        min:{
-            0
+        validate:{
+            validator: (value)=>{
+                return value=="Activo" || value=="Inactivo"
+            },
+            message: "El estado no cumple con el formato"
         }
+        
     },
     valor:{
         type: Number,
-        default: 0,
-        validate: (value)=>{
-            return value >= 0;
-        },
-        message: "No se pudo registrar el valor"
+        validate: {
+            validator: (value) => {
+              return value >= 0;
+            },
+            message: "El valor no puede ser negativo",
+        }
     },
     descripcion:{
         type: String,
@@ -49,4 +54,11 @@ const CobroSchema = Schema({
     }
 
 })
+CobroSchema.pre('findOneAndUpdate', function (next) {
+    if (this.valor < 0) {
+      const error = new Error("El valor no puede ser negativo");
+      return next(error);
+    }
+    next();
+  });
 module.exports = model("Cobro", CobroSchema);

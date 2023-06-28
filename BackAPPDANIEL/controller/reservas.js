@@ -41,6 +41,8 @@ const putReserva = async (req, res) => {
         delete camposEditar.tipoReserva
         delete camposEditar.codigoReserva
         delete camposEditar.fechaCreacion
+        delete camposEditar.propietario
+        delete camposEditar.espacio
         console.log(camposEditar)
         console.log(body._id)
         const reserva = await Reserva.findOneAndUpdate({_id: body._id}, camposEditar, {new: true});
